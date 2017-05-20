@@ -6,24 +6,17 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     public Text countText;
-
-    [Dependency]
-    public CpWinText winText; // this will be injected later
-
-
+    public Text winText;
 
     private int count;
     private Rigidbody rb;
 
     void Start()
     {
-        Debug.Log("Before inject " + (winText==null));
-        this.Inject(); // does the magic and injects all dependencies
-        Debug.Log("Post Inject " + (winText==null));
-
         rb = GetComponent<Rigidbody>();
         count = 0;
         SetCountText();
+        winText.enabled = false;
     }
 
     void FixedUpdate()
@@ -52,7 +45,7 @@ public class PlayerController : MonoBehaviour
         if (count >= 12)
         {
             // the wintext will 
-            winText.ShowYourself();
+            winText.enabled=true;
         }
     }
 }
