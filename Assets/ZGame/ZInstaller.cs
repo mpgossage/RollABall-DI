@@ -7,5 +7,6 @@ public class ZInstaller : MonoInstaller<ZInstaller>
     {
         Container.DeclareSignal<ZSignals.GameWon>();
         Container.DeclareSignal<ZSignals.ScoreUpdated>();
+        Container.Bind<ZScoreManager>().AsSingle();
     }
 }

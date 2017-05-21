@@ -8,19 +8,14 @@ public class ZPlayerController : MonoBehaviour
 {
     public float speed;
 
-    private int count;
     private Rigidbody rb;
 
     [Inject]
-    ZSignals.GameWon gameWonSignal;
-    [Inject]
-    ZSignals.ScoreUpdated scoreUpdatedSignal;
+    ZScoreManager scoreManager;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        count = 0;
-        SetCountText();
     }
 
     void FixedUpdate()
@@ -38,17 +33,7 @@ public class ZPlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Pick Up"))
         {
             other.gameObject.SetActive(false);
-            count++;
-            SetCountText();
-        }
-    }
-    void SetCountText()
-    {
-        scoreUpdatedSignal.Fire(count);
-        if (count >= 12)
-        {
-            Debug.Log("PlayerController says GameWon");
-            gameWonSignal.Fire();
+            scoreManager.AddScore(1);   // tell the score manager, it does the rest
         }
     }
 }
