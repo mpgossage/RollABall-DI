@@ -10,9 +10,6 @@ public class ZPlayerController : MonoBehaviour
 
     private Rigidbody rb;
 
-    [Inject]
-    ZScoreManager scoreManager;
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -26,14 +23,5 @@ public class ZPlayerController : MonoBehaviour
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
         rb.AddForce(movement * speed);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Pick Up"))
-        {
-            other.gameObject.SetActive(false);
-            scoreManager.AddScore(1);   // tell the score manager, it does the rest
-        }
     }
 }
